@@ -45,8 +45,11 @@
 		  
 			  <?php
                     $attr = array('class' => 'form-login','id'	=> 'form_regis');
-                    $hidden = array('id_user' => $id);
-                    echo form_open('Welcome/daftar',$attr,$hidden); 
+                    $hidden = array('id_user' => $id_user, 'id_bio' => $id_bio);
+                    
+                    echo validation_errors();
+
+                    echo form_open('C_User/daftar',$attr,$hidden); 
 			  ?>
 		      <!-- <form id="form-regis" class="form-login" action=""> -->
                 <h2 class="form-login-heading">Daftar</h2>
@@ -67,12 +70,12 @@
 
 					<div class="login-wrap">
 						<div id="step-1">
-							<input type="text" name="username" class="form-control" placeholder="Username" autofocus>
+							<input type="text" name="username" class="form-control" placeholder="Username" autofocus >
 							<br>
-							<input type="password" name="password" class="form-control" placeholder="Password">
+							<input type="password" name="password" class="form-control" placeholder="Password" >
 						</div>
 						<div id="step-2">
-							<input type="text" name="nama" class="form-control" placeholder="Nama Lengkap" autofocus>
+							<input type="text" name="nama" class="form-control" placeholder="Nama Lengkap" autofocus >
 							<br>
 							<input type="email" name="email" class="form-control" placeholder="Email">
 							<br>
@@ -92,7 +95,7 @@
 				<div class="login-wrap">
 					<div class="registration">
 		                Sudah mempunyai akun?<br/>
-		                <a class="" href="<?=site_url()?>/Welcome/">
+		                <a class="" href="<?=site_url()?>/C_User/">
 		                    Log in
 		                </a>
 		            </div>

@@ -111,7 +111,7 @@
             </div>
             <div class="top-menu">
             	<ul class="nav pull-right top-menu">
-                    <li><a class="logout" href="<?=site_url()?>/Welcome/">Logout</a></li>
+                    <li><a class="logout" href="<?=site_url()?>/C_User/logout">Logout</a></li>
             	</ul>
             </div>
         </header>

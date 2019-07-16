@@ -12,8 +12,7 @@
           		<div class="col-md-12">
                     <div class="content-panel" style="padding-left:10px;padding-right:10px;">
                             <table class="table table-striped table-advance table-hover" id="kiloan">
-	                  	  	  <h4><i class="fa fa-angle-right"></i> Kiloan</h4>
-                                  <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#ModalTambah"><i class="fa fa-pencil"></i> Tambah</button>
+                                  <button class="btn btn-primary" data-toggle="modal" data-target="#ModalTambah"><i class="fa fa-pencil"></i> Tambah</button>
 	                  	  	  <hr>
                               <thead>
                               <tr>

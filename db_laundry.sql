@@ -1,0 +1,168 @@
+-- phpMyAdmin SQL Dump
+-- version 4.7.0
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: 16 Jul 2019 pada 09.34
+-- Versi Server: 10.1.26-MariaDB
+-- PHP Version: 7.1.8
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `db_laundry`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tbl_biodata`
+--
+
+CREATE TABLE `tbl_biodata` (
+  `bio_id` char(6) NOT NULL,
+  `bio_user_id` char(6) NOT NULL,
+  `bio_nama` varchar(50) NOT NULL,
+  `bio_email` varchar(30) NOT NULL,
+  `bio_telepon` varchar(15) NOT NULL,
+  `bio_alamat` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tbl_detail_layanan`
+--
+
+CREATE TABLE `tbl_detail_layanan` (
+  `detail_id` char(6) NOT NULL,
+  `detail_layanan_id` char(6) NOT NULL,
+  `detail_jumlah_item` double NOT NULL,
+  `detail_total` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tbl_layanan`
+--
+
+CREATE TABLE `tbl_layanan` (
+  `layanan_id` char(6) NOT NULL,
+  `layanan_nama` varchar(50) NOT NULL,
+  `layanan_harga` double NOT NULL,
+  `layanan_jenis` enum('Paket','Satuan') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `tbl_layanan`
+--
+
+INSERT INTO `tbl_layanan` (`layanan_id`, `layanan_nama`, `layanan_harga`, `layanan_jenis`) VALUES
+('L001', 'CKS', 5000, 'Paket'),
+('L002', 'Jas', 10000, 'Satuan');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tbl_transaksi`
+--
+
+CREATE TABLE `tbl_transaksi` (
+  `trans_id` char(6) NOT NULL,
+  `trans_pelanggan_id` char(6) NOT NULL,
+  `trans_detail_id` char(6) NOT NULL,
+  `trans_tgl_pesan` datetime NOT NULL,
+  `trans_tgl_selesai` datetime NOT NULL,
+  `trans_total_harga` double NOT NULL,
+  `trans_status_pengerjaan` enum('Sedang Dikerjakan','Selesai') NOT NULL,
+  `trans_status_pengambilan` enum('Ya','Tidak') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tbl_user`
+--
+
+CREATE TABLE `tbl_user` (
+  `user_id` char(6) NOT NULL,
+  `user_username` varchar(50) NOT NULL,
+  `user_password` varchar(50) NOT NULL,
+  `user_status` enum('Admin','Petugas','Pelanggan') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `tbl_biodata`
+--
+ALTER TABLE `tbl_biodata`
+  ADD PRIMARY KEY (`bio_id`),
+  ADD KEY `fk_user_id` (`bio_user_id`);
+
+--
+-- Indexes for table `tbl_detail_layanan`
+--
+ALTER TABLE `tbl_detail_layanan`
+  ADD PRIMARY KEY (`detail_id`),
+  ADD KEY `fk_layanan_id` (`detail_layanan_id`);
+
+--
+-- Indexes for table `tbl_layanan`
+--
+ALTER TABLE `tbl_layanan`
+  ADD PRIMARY KEY (`layanan_id`);
+
+--
+-- Indexes for table `tbl_transaksi`
+--
+ALTER TABLE `tbl_transaksi`
+  ADD PRIMARY KEY (`trans_id`),
+  ADD KEY `fk_detail_transaksi` (`trans_detail_id`),
+  ADD KEY `fk_pelanggan_id` (`trans_pelanggan_id`);
+
+--
+-- Indexes for table `tbl_user`
+--
+ALTER TABLE `tbl_user`
+  ADD PRIMARY KEY (`user_id`);
+
+--
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+--
+
+--
+-- Ketidakleluasaan untuk tabel `tbl_biodata`
+--
+ALTER TABLE `tbl_biodata`
+  ADD CONSTRAINT `fk_user_id` FOREIGN KEY (`bio_user_id`) REFERENCES `tbl_user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `tbl_detail_layanan`
+--
+ALTER TABLE `tbl_detail_layanan`
+  ADD CONSTRAINT `fk_layanan_id` FOREIGN KEY (`detail_layanan_id`) REFERENCES `tbl_layanan` (`layanan_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `tbl_transaksi`
+--
+ALTER TABLE `tbl_transaksi`
+  ADD CONSTRAINT `fk_detail_transaksi` FOREIGN KEY (`trans_detail_id`) REFERENCES `tbl_detail_layanan` (`detail_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_pelanggan_id` FOREIGN KEY (`trans_pelanggan_id`) REFERENCES `tbl_biodata` (`bio_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

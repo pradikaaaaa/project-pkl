@@ -34,26 +34,29 @@
 
 	  <div id="login-page">
 	  	<div class="container">
+
+
+		  	<?php
+				$attr = array('class' => 'form-login');
+
+				echo validation_errors();
+				echo form_open('C_User/cekLogin',$attr); 
+			?>
 	  	
-		      <form class="form-login" action="<?=site_url()?>/Welcome/blank">
+		      <!-- <form class="form-login" action="<?=site_url()?>/Welcome/blank"> -->
 		        <h2 class="form-login-heading">sign in now</h2>
 		        <div class="login-wrap">
-		            <input type="text" class="form-control" placeholder="User ID" autofocus>
+		            <input type="text" name="username" class="form-control" placeholder="User ID" autofocus>
 		            <br>
-		            <input type="password" class="form-control" placeholder="Password">
-		            <label class="checkbox">
-		                <span class="pull-right">
-		                    <a data-toggle="modal" href="login.html#myModal"> Forgot Password?</a>
-		
-		                </span>
-		            </label>
+		            <input type="password" name="password" class="form-control" placeholder="Password">
+					<br>
 		            <button class="btn btn-theme btn-block" href="" type="submit"><i class="fa fa-lock"></i> SIGN IN</button>
 		            <hr>
 		            
 
 		            <div class="registration">
 		                Don't have an account yet?<br/>
-		                <a class="" href="<?=site_url()?>/Welcome/Registrasi">
+		                <a class="" href="<?=site_url()?>/C_User/regisForm">
 		                    Create an account
 		                </a>
 		            </div>
@@ -93,10 +96,10 @@
 
     <!--BACKSTRETCH-->
     <!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
-    <script type="<?=base_url()?>assets/dashgum/text/javascript" src="assets/js/jquery.backstretch.min.js"></script>
-    <!-- <script>
-        $.backstretch("assets/img/login-bg.jpg", {speed: 500});
-    </script> -->
+    <script type="text/javascript" src="<?=base_url()?>assets/dashgum/js/jquery.backstretch.min.js"></script>
+    <script>
+        $.backstretch("<?=base_url()?>assets/img/bg-login/login-bg.jpg", {speed: 500});
+    </script>
 
 
   </body>

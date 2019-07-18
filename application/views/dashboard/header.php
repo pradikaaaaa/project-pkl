@@ -1,3 +1,9 @@
+<?php
+    $session_data = $this->session->userdata('logged_in');
+    $data['nama'] = $session_data['user_nama'];
+    $data['status'] = $session_data['user_status'];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -17,6 +23,7 @@
     <!-- Custom styles for this template -->
     <link href="<?=base_url()?>assets/dashgum/css/style.css" rel="stylesheet">
     <link href="<?=base_url()?>assets/dashgum/css/style-responsive.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="<?=base_url()?>/assets/dashgum/lineicons/style.css">
     
     <!-- Datatable -->
     <link href="<?=base_url()?>assets/dashgum/css/table-responsive.css" rel="stylesheet">
@@ -111,7 +118,7 @@
             </div>
             <div class="top-menu">
             	<ul class="nav pull-right top-menu">
-                    <li><a class="logout" href="<?=site_url()?>/Welcome/">Logout</a></li>
+                    <li><a class="logout" href="<?=site_url()?>/C_User/logout">Logout</a></li>
             	</ul>
             </div>
         </header>
@@ -127,7 +134,7 @@
               <ul class="sidebar-menu" id="nav-accordion">
               
               	  <p class="centered"><a href="profile.html"><img src="<?=base_url()?>assets/dashgum/img/ui-sam.jpg" class="img-circle" width="60"></a></p>
-              	  <h5 class="centered">Marcel Newman</h5>
+              	  <h5 class="centered"><?=$data['nama']?></h5>
               	  	
                   <li class="mt">
                       <a href="">
@@ -135,16 +142,25 @@
                           <span>Dashboard</span>
                       </a>
                   </li>
+
+                <?php if($data['status'] != 'Pelanggan'){ ?>
                   <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-th"></i>
                           <span>Master</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="">User</a></li>
+                          <li><a  href="<?=site_url()?>/C_User/list_user">User</a></li>
                           <li><a  href="<?=site_url()?>/C_Layanan/">Layanan</a></li>
+                          <li><hr></li>
+                          <li><a  href="<?=site_url()?>/C_Biodata/list_biodata/Pelanggan">Pelanggan</a></li>
+                          <li><a  href="<?=site_url()?>/C_Biodata/list_biodata/Petugas">Petugas</a></li>
                       </ul>
                   </li>
+                <?php } ?>
+
+
+
                   <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-book"></i>

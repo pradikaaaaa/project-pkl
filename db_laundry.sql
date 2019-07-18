@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 16 Jul 2019 pada 09.34
+-- Generation Time: 18 Jul 2019 pada 08.24
 -- Versi Server: 10.1.26-MariaDB
 -- PHP Version: 7.1.8
 
@@ -37,6 +37,15 @@ CREATE TABLE `tbl_biodata` (
   `bio_alamat` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `tbl_biodata`
+--
+
+INSERT INTO `tbl_biodata` (`bio_id`, `bio_user_id`, `bio_nama`, `bio_email`, `bio_telepon`, `bio_alamat`) VALUES
+('B000', 'U000', 'Administrator', '', '', ''),
+('B001', 'U001', 'Yahya', '', '', ''),
+('B002', 'U002', 'Santoso', '', '12312', 'Jalan Jkl 134<br>Malang,');
+
 -- --------------------------------------------------------
 
 --
@@ -68,8 +77,15 @@ CREATE TABLE `tbl_layanan` (
 --
 
 INSERT INTO `tbl_layanan` (`layanan_id`, `layanan_nama`, `layanan_harga`, `layanan_jenis`) VALUES
-('L001', 'CKS', 5000, 'Paket'),
-('L002', 'Jas', 10000, 'Satuan');
+('L001', 'Cuci Kering Setrika', 5000, 'Paket'),
+('L002', 'Jas', 35000, 'Satuan'),
+('L003', 'Jaket', 18000, 'Satuan'),
+('L004', 'Handuk Sedang', 10000, 'Satuan'),
+('L005', 'Handuk Besar', 15000, 'Satuan'),
+('L006', 'Celana Pendek', 10000, 'Satuan'),
+('L007', 'Celana Panjang', 15000, 'Satuan'),
+('L008', 'Celana Jeans', 14000, 'Satuan'),
+('L009', 'Cuci Kering', 3000, 'Paket');
 
 -- --------------------------------------------------------
 
@@ -100,6 +116,42 @@ CREATE TABLE `tbl_user` (
   `user_password` varchar(50) NOT NULL,
   `user_status` enum('Admin','Petugas','Pelanggan') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `tbl_user`
+--
+
+INSERT INTO `tbl_user` (`user_id`, `user_username`, `user_password`, `user_status`) VALUES
+('U000', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'Admin'),
+('U001', 'yahuya', '57b6765018fd3dfd3d8fc1bb1bababc6', 'Pelanggan'),
+('U002', 'pradikaaaaa', '827ccb0eea8a706c4c34a16891f84e7b', 'Petugas');
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `view_user_biodata`
+-- (Lihat di bawah untuk tampilan aktual)
+--
+CREATE TABLE `view_user_biodata` (
+`user_id` char(6)
+,`user_username` varchar(50)
+,`user_status` enum('Admin','Petugas','Pelanggan')
+,`bio_id` char(6)
+,`bio_user_id` char(6)
+,`bio_nama` varchar(50)
+,`bio_email` varchar(30)
+,`bio_telepon` varchar(15)
+,`bio_alamat` text
+);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur untuk view `view_user_biodata`
+--
+DROP TABLE IF EXISTS `view_user_biodata`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_user_biodata`  AS  select `tbl_user`.`user_id` AS `user_id`,`tbl_user`.`user_username` AS `user_username`,`tbl_user`.`user_status` AS `user_status`,`tbl_biodata`.`bio_id` AS `bio_id`,`tbl_biodata`.`bio_user_id` AS `bio_user_id`,`tbl_biodata`.`bio_nama` AS `bio_nama`,`tbl_biodata`.`bio_email` AS `bio_email`,`tbl_biodata`.`bio_telepon` AS `bio_telepon`,`tbl_biodata`.`bio_alamat` AS `bio_alamat` from (`tbl_user` join `tbl_biodata` on((`tbl_user`.`user_id` = `tbl_biodata`.`bio_user_id`))) ;
 
 --
 -- Indexes for dumped tables

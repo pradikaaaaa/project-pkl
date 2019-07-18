@@ -21,7 +21,15 @@ class M_Biodata extends CI_Model {
     }
     
     
-    
+    /*-----*/
+    public function getListBiodata($status){
+        $this->db->select('*');
+        $this->db->where('user_status', $status);
+        return $this->db->get('view_user_biodata')->result();
+        
+    }
+
+    /*---------------------------------- */
     public function CekKode($id){
         $this->db->select('*');
         $this->db->where('bio_id', $id);

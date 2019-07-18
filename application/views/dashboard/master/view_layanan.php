@@ -28,7 +28,7 @@
                                     <tr>
                                         <td><?=$key->layanan_id?></td>
                                         <td><?=$key->layanan_nama?></td>
-                                        <td><?=$key->layanan_harga?></td>
+                                        <td>Rp. <?=$key->layanan_harga?></td>
                                         <td><?=$key->layanan_jenis?></td>
                                         <td>
                                         <!-- <a href="javascript:;" class="btn btn-info btn-sm btn-block kategori_edit" data-id="'+data[i].kode_kategori+'" data-kategori="'+data[i].kategori_event+'">Edit</a> -->

@@ -11,6 +11,8 @@ class C_User extends CI_Controller {
         
     }
 
+    /*-------------------Pindah------------------------- */
+
     public function index(){
         $this->load->view('view_login');
         
@@ -22,7 +24,14 @@ class C_User extends CI_Controller {
         $this->load->view('view_registrasi', $user);
     }
 
-    /*-------------------------------------------- */
+    /*---------------------pindah dashboard */
+    public function list_user(){
+        $data['list_user'] = $this->M_User->getListUser();
+        $this->load->view('dashboard/master/view_user', $data);
+        
+    }
+
+    /*----------------Proses---------------------------- */
 
     public function daftar(){
         $this->form_validation->set_error_delimiters('<div class="alert alert-danger alert-dismissable" style="margin:10px;">
@@ -52,11 +61,8 @@ class C_User extends CI_Controller {
         if ($this->form_validation->run() == false) {
             $this->load->view('view_login');
         } else { 
-            redirect('C_Layanan','refresh');
-            
+            redirect('C_Dashboard','refresh'); 
         }
-        
-           
     }
 
     public function logout(){
@@ -65,8 +71,7 @@ class C_User extends CI_Controller {
         redirect('C_User','refresh');
     }
 
-    /*---------------------------------------- */
-
+    /*----------------Auto------------------------ */
 
     public function cekDb($pass){
         $user = $this->input->post('username');
@@ -78,7 +83,8 @@ class C_User extends CI_Controller {
                 $sess_array = array(
                     'user_id'   => $row->user_id,
                     'user_username' => $row->user_username,
-                    'user_status'   => $row->user_status
+                    'user_status'   => $row->user_status,
+                    'user_nama'     => $row->bio_nama
                 );
                 $this->session->set_userdata('logged_in',$sess_array);
             }

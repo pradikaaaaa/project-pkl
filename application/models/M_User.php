@@ -7,6 +7,7 @@ class M_User extends CI_Model {
     public function login($user,$pass){
         $this->db->select('*');
         $this->db->from('tbl_user');
+        $this->db->join('tbl_biodata', 'tbl_user.user_id = tbl_biodata.bio_user_id');
         $this->db->where('user_username', $user);
         $this->db->where('user_password', md5($pass));
 
@@ -29,6 +30,11 @@ class M_User extends CI_Model {
         $this->db->insert('tbl_user',$data);
     }
 
+    public function getListUser(){
+        $this->db->select('*');
+        $this->db->where('user_status !=', 'admin');
+        return $this->db->get('tbl_user')->result();
+    }
 
     public function CekKode($id){
         $this->db->select('*');

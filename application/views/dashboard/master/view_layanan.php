@@ -91,10 +91,10 @@
                               </div>
                         </div>
                         <div class="form-group">
-                              <label class="col-sm-2 col-sm-2 control-label">Nama Layanan</label>
+                              <!-- <label class="col-sm-2 col-sm-2 control-label">Nama Layanan</label>
                               <div class="col-sm-10">
                                   <input class="form-control" type="text" placeholder="Nama Layanan" name="nama">
-                              </div>
+                              </div> -->
                         </div>
                         <div class="form-group">
                               <label class="col-sm-2 col-sm-2 control-label">Harga</label>

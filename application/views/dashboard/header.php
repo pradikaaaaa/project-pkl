@@ -141,6 +141,9 @@
                           <i class="fa fa-dashboard"></i>
                           <span>Dashboard</span>
                       </a>
+                      <ul class="sub">
+                          <li><a  href="<?=site_url()?>/C_transaksi/">Transaksi</a></li>
+                      </ul>
                   </li>
 
                 <?php if($data['status'] != 'Pelanggan'){ ?>
